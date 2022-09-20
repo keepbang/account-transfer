@@ -12,7 +12,7 @@ create table users
 
 --  Actual parameter values may differ, what you see is a default string representation of values
 INSERT INTO users (user_id, name, password, email, phone_number, nick_name, created_at)
-VALUES ('cfb98446efaa4c9d9525d67eed414e01', '김철수', '1234', 'kim@com', '010-1111-2222', '철수',
+VALUES ('cfb98446efaa4c9d9525d67eed414e01', '김철수', '1234', 'kim@kakao.com', '010-1111-2222', '철수',
         DATE_ADD(NOW(), INTERVAL -5 MONTH));
 INSERT INTO users (user_id, name, password, email, phone_number, nick_name, created_at)
 VALUES ('3a762305de0d488eba93235300a2fdf5', 'test', '1234', 'test@gmail.com', '010-2222-3333',
