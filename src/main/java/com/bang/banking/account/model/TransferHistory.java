@@ -3,6 +3,7 @@ package com.bang.banking.account.model;
 import com.bang.banking.account.dto.AccountTransferRequest;
 import com.bang.banking.account.model.type.TransferStatus;
 import com.bang.banking.account.model.type.TransferType;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,9 +40,10 @@ public class TransferHistory {
   private String receiverId;
 
   @Column(name = "transfer_amount", length = 32, nullable = false)
-  private Long transferAmount;
+  private BigDecimal transferAmount;
 
   @Column(name = "transfer_status", length = 32, nullable = false)
+  @Enumerated(EnumType.STRING)
   private TransferStatus transferStatus = TransferStatus.REQUEST;
 
   @Column(name = "transfer_type", length = 32, nullable = false)
@@ -55,7 +57,7 @@ public class TransferHistory {
   private LocalDateTime receiveAt;
 
   public TransferHistory(String withdrawAccountNumber, String senderId, String receiverId,
-      Long transferAmount, TransferType transferType) {
+      BigDecimal transferAmount, TransferType transferType) {
     this.withdrawAccountNumber = withdrawAccountNumber;
     this.senderId = senderId;
     this.receiverId = receiverId;

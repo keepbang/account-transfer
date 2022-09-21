@@ -1,5 +1,7 @@
 package com.bang.banking.account.dto;
 
+import java.math.BigDecimal;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -24,11 +26,11 @@ public class AccountTransferRequest {
   private String receiverId;
 
   @NotNull(message = "transfer_amount is not null.")
-  @Min(value = 0, message = "A value of transfer_amount field must be over than 0.")
-  private Long transferAmount;
+  @DecimalMin(value = "0", inclusive = false)
+  private BigDecimal transferAmount;
 
   public AccountTransferRequest(String senderId, String senderAccountNumber,
-      String senderAccountPassword, String receiverId, Long transferAmount) {
+      String senderAccountPassword, String receiverId, BigDecimal transferAmount) {
     this.senderId = senderId;
     this.senderAccountNumber = senderAccountNumber;
     this.senderAccountPassword = senderAccountPassword;

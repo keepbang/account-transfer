@@ -27,7 +27,7 @@ create table accounts
     account_name      varchar(30)  not null,
     is_representative TINYINT(1)   not null default 0,
     account_password  varchar(100) not null,
-    balance           bigint       not null,
+    balance           decimal(20,0)       not null,
     created_at        datetime(6)  not null default now(),
     modified_at       datetime(6)  null
 );
@@ -54,7 +54,7 @@ create table transfer_history
     deposit_account  varchar(20) null,
     sender_id        varchar(32) not null,
     receiver_id      varchar(32) not null,
-    transfer_amount  bigint      not null,
+    transfer_amount  decimal(20,0)      not null,
     transfer_status  varchar(20) not null default 'REQUEST',
     transfer_type    varchar(20) not null,
     send_at          datetime(6) not null default now(),

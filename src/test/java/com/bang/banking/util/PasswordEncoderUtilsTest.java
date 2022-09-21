@@ -13,6 +13,6 @@ class PasswordEncoderUtilsTest {
     // when
     String encodePassword = PasswordUtils.encode(password);
     // then
-    System.out.println(encodePassword);
+    assertThat(PasswordUtils.matches(password, encodePassword)).isTrue();
   }
 }

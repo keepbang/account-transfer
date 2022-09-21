@@ -2,6 +2,7 @@ package com.bang.banking.account.model;
 
 import com.bang.banking.user.model.Users;
 import com.bang.banking.util.PasswordUtils;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +39,7 @@ public class Accounts {
   private String accountPassword;
 
   @Column(name = "balance", nullable = false)
-  private Long balance;
+  private BigDecimal balance;
 
   @Column(name = "created_at", nullable = false)
   private LocalDateTime createdAt = LocalDateTime.now();
@@ -47,7 +48,7 @@ public class Accounts {
   private LocalDateTime modifiedAt;
 
   public Accounts(String accountNumber, Users users, String accountName, boolean representative,
-      String accountPassword, Long balance) {
+      String accountPassword, BigDecimal balance) {
     this.accountNumber = accountNumber;
     this.users = users;
     this.accountName = accountName;
@@ -63,20 +64,20 @@ public class Accounts {
     }
   }
 
-  private void isNotValidAmount(long amount) {
-    if (this.balance < amount) {
+  private void isNotValidAmount(BigDecimal amount) {
+    if (this.balance.compareTo(amount) < 0) {
       throw new IllegalArgumentException("금액이 잔액을 초과했습니다.");
     }
 
-    if (amount < 1) {
+    if (amount.compareTo(BigDecimal.ONE) < 0) {
       throw new IllegalArgumentException("금액이 1보다 작습니다.");
     }
   }
 
-  public void withdraw(Long amount, String inputPassword) {
+  public void withdraw(BigDecimal amount, String inputPassword) {
     checkPassword(inputPassword);
     isNotValidAmount(amount);
 
-    this.balance -= amount;
+    this.balance = this.balance.subtract(amount);
   }
 }

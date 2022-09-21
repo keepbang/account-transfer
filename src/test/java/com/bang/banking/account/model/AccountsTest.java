@@ -3,7 +3,7 @@ package com.bang.banking.account.model;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.hibernate.annotations.Source;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,9 +21,9 @@ class AccountsTest {
     // given
     // when
     Accounts accounts = AccountsInstance.getInstance();
-    accounts.withdraw(1_000L, inputPassword);
+    accounts.withdraw(BigDecimal.valueOf(1_000), inputPassword);
     // then
-    assertThat(accounts.getBalance()).isEqualTo(9_000);
+    assertThat(accounts.getBalance()).isEqualTo(BigDecimal.valueOf(9_000));
   }
 
   @ParameterizedTest
@@ -37,7 +37,7 @@ class AccountsTest {
     // when
     Accounts accounts = AccountsInstance.getInstance();
     // then
-    assertThatThrownBy(() -> accounts.withdraw(1_000L, inputPassword))
+    assertThatThrownBy(() -> accounts.withdraw(BigDecimal.valueOf(1_000), inputPassword))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("패스워드가 일치하지 않습니다.");
   }
@@ -48,7 +48,7 @@ class AccountsTest {
       "9999,1"
   })
   @DisplayName("잔액 검증 성공")
-  void checkBalanceSuccess(long amount, long balance) {
+  void checkBalanceSuccess(BigDecimal amount, BigDecimal balance) {
     // given
     // when
     Accounts accounts = AccountsInstance.getInstance();
@@ -63,7 +63,7 @@ class AccountsTest {
       "10001, 금액이 잔액을 초과했습니다."
   })
   @DisplayName("잔액 검증 실패")
-  void checkBalanceThrowException(long amount, String message) {
+  void checkBalanceThrowException(BigDecimal amount, String message) {
     // given
     // when
     Accounts accounts = AccountsInstance.getInstance();

@@ -1,6 +1,7 @@
 package com.bang.banking.account.model;
 
 import com.bang.banking.user.model.Users;
+import java.math.BigDecimal;
 
 public class AccountsInstance {
 
@@ -18,7 +19,7 @@ public class AccountsInstance {
         "계좌 이름",
         true,
         "1234",
-        10_000L
+        BigDecimal.valueOf(10_000)
     );
   }
 }
